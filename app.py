@@ -145,7 +145,7 @@ def load_data():
 df = load_data()
 
 # Header
-st.markdown("<h1 style='text-align: center; font-size: 3rem; margin-bottom: 0;'>📊 Telco Churn Prediction</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 3rem; margin-bottom: 0;'> Telco Churn Prediction</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: rgba(255,255,255,0.9); font-size: 1.1rem; margin-top: 0;'>AI-powered customer retention insights</p>", unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
