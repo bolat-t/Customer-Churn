@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import seaborn as sns
+import seaborn as snsg
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
@@ -14,22 +14,26 @@ st.set_page_config(page_title="Telco Customer Churn Prediction", layout="wide")
 # =========================
 # 1. Load Data
 # =========================
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Telco-Customer-Churn.csv")
+    df = pd.read_csv("Telco-Customer-Churn.csv")  # CSV in same folder
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
     df['TotalCharges'].fillna(df['TotalCharges'].median(), inplace=True)
+    
     # Encode Yes/No columns
-    yes_no_cols = ['Partner','Dependents','PhoneService','PaperlessBilling','Churn',
-                   'OnlineSecurity','OnlineBackup','DeviceProtection','TechSupport',
-                   'StreamingTV','StreamingMovies']
+    yes_no_cols = [
+        'Partner','Dependents','PhoneService','PaperlessBilling','Churn',
+        'OnlineSecurity','OnlineBackup','DeviceProtection','TechSupport',
+        'StreamingTV','StreamingMovies'
+    ]
     for col in yes_no_cols:
         df[col] = df[col].map({'Yes':1,'No':0})
-    df['tenure_category'] = pd.cut(df['tenure'], bins=[0,12,24,48,72], labels=['0-12','12-24','24-48','48-72'])
-    df['has_internet'] = df['InternetService'].apply(lambda x: 0 if x=='No' else 1)
+    
     return df
 
 df = load_data()
+
 
 st.title("📊 Telco Customer Churn Prediction")
 st.write("Predict customer churn and explore insights.")
