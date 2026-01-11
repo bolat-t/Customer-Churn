@@ -193,32 +193,33 @@ with tab1:
     # Charts
     col1, col2 = st.columns(2)
     
-    with col1:
-        st.markdown("### Churn Distribution")
-        churn_counts = df['Churn'].value_counts()
-        
-        fig = go.Figure(data=[
-            go.Bar(
-                x=['Retained', 'Churned'],
-                y=[churn_counts.get(0, 0), churn_counts.get(1, 0)],
-                marker_color=['#10b981', '#ef4444'],
-                text=[churn_counts.get(0, 0), churn_counts.get(1, 0)],
-                textposition='auto',
-                textfont=dict(size=14, color='white', family='Arial Black'),
-            )
-        ])
-        
-        fig.update_layout(
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(color='#1e293b', size=12),
-            height=350,
-            margin=dict(t=20, b=40, l=40, r=20),
-            xaxis=dict(showgrid=False),
-            yaxis=dict(showgrid=True, gridcolor='rgba(0,0,0,0.05)'),
+with col1:
+    st.markdown("### Churn Distribution (%)")
+    churn_counts = df['Churn'].value_counts(normalize=True) * 100  # convert to %
+    
+    fig = go.Figure(data=[
+        go.Bar(
+            x=['Retained', 'Churned'],
+            y=[churn_counts.get(0, 0), churn_counts.get(1, 0)],
+            marker_color=['#10b981', '#ef4444'],
+            text=[f"{churn_counts.get(0, 0):.1f}%", f"{churn_counts.get(1, 0):.1f}%"],
+            textposition='auto',
+            textfont=dict(size=14, color='white', family='Arial Black'),
         )
-        
-        st.plotly_chart(fig, use_container_width=True)
+    ])
+    
+    fig.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='white', size=12),
+        height=350,
+        margin=dict(t=20, b=40, l=40, r=20),
+        xaxis=dict(showgrid=False, color='white'),
+        yaxis=dict(showgrid=True, gridcolor='rgba(255,255,255,0.05)', title='Churn Rate (%)', color='white'),
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+
     
     with col2:
         st.markdown("### Churn Rate by Contract")
@@ -247,6 +248,53 @@ with tab1:
         
         st.plotly_chart(fig, use_container_width=True)
     
+        # Load results (pickles from compute_results.py)
+    results = joblib.load("results.pkl")
+    comparison_df = joblib.load("comparison_df.pkl")
+    feature_importance = joblib.load("feature_importance.pkl")
+    
+    # Model Comparison Chart
+    st.markdown("###  Model Performance Comparison")
+    fig = go.Figure()
+    colors = ['#14b8a6', '#a78bfa', '#fbbf24']
+    for idx, row in comparison_df.iterrows():
+        fig.add_trace(go.Bar(
+            x=[row['Model']],
+            y=[row['Accuracy']*100],
+            name='Accuracy',
+            marker_color=colors[idx],
+            text=f"{row['Accuracy']*100:.1f}%",
+            textposition='outside'
+        ))
+    fig.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='white'),
+        yaxis=dict(title="Accuracy (%)", range=[0,100]),
+        height=400
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    
+    # Feature Importance Chart
+    st.markdown("### 📈 Top Features Influencing Churn")
+    top_features = feature_importance.head(10)
+    fig2 = go.Figure(go.Bar(
+        x=top_features['Importance'],
+        y=top_features['Feature'],
+        orientation='h',
+        marker_color='#3b82f6',
+        text=[f"{val*100:.1f}%" if val <=1 else f"{val:.2f}" for val in top_features['Importance']],
+        textposition='outside'
+    ))
+    fig2.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='white'),
+        yaxis=dict(autorange="reversed"),
+        height=400
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+
     # Insights box
     st.markdown("### 💡 Key Insights")
     st.info("""
