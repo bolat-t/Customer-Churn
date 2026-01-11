@@ -11,7 +11,7 @@ import os
 # Page config with custom theme
 st.set_page_config(
     page_title="Telco Churn Prediction",
-    page_icon="📊",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
