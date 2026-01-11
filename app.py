@@ -19,9 +19,9 @@ st.set_page_config(
 # Custom CSS for modern styling
 st.markdown("""
 <style>
-    /* Main background */
+    /* Remove main background */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: none;
     }
     
     /* Hide Streamlit branding */
@@ -78,7 +78,7 @@ st.markdown("""
     
     /* Headers */
     h1 {
-        color: white !important;
+        color: #1e293b !important;
         font-weight: 700;
         margin-bottom: 0.5rem;
     }
@@ -104,15 +104,15 @@ st.markdown("""
     
     .stTabs [data-baseweb="tab"] {
         background: transparent;
-        color: white;
+        color: #1e293b;
         border-radius: 8px;
         padding: 0.75rem 1.5rem;
         font-weight: 500;
     }
     
     .stTabs [aria-selected="true"] {
-        background: white !important;
-        color: #667eea !important;
+        background: #667eea !important;
+        color: white !important;
     }
     
     /* Info/Warning/Error boxes */
@@ -122,6 +122,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 # Load Data
 @st.cache_data
