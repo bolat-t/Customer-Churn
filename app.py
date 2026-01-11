@@ -17,11 +17,14 @@ st.set_page_config(
 )
 
 # Custom CSS for modern styling
+# Custom CSS for modern dark mode
 st.markdown("""
 <style>
-    /* Remove main background */
+    /* Main app background */
     .stApp {
-        background: none;
+        background-color: #0f172a;
+        color: #f1f5f9;
+        font-family: 'Arial', sans-serif;
     }
     
     /* Hide Streamlit branding */
@@ -29,89 +32,92 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Card styling */
+    /* Card styling (frosted glass) */
     .css-1r6slb0 {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(20, 23, 36, 0.85);
         border-radius: 16px;
         padding: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(10px);
+        color: #f1f5f9;
     }
     
     /* Metric cards */
     [data-testid="stMetricValue"] {
         font-size: 2rem;
         font-weight: 700;
-        color: #1e293b;
+        color: #f1f5f9;
     }
     
     [data-testid="stMetricLabel"] {
         font-size: 0.875rem;
-        color: #64748b;
+        color: #94a3b8;
         font-weight: 500;
     }
     
     /* Buttons */
     .stButton>button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+        color: #f1f5f9;
         border: none;
         border-radius: 12px;
         padding: 0.75rem 2rem;
         font-weight: 600;
-        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
         transition: all 0.3s ease;
     }
     
     .stButton>button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 24px rgba(102, 126, 234, 0.5);
+        box-shadow: 0 6px 24px rgba(79, 70, 229, 0.5);
     }
     
     /* Input fields */
     .stNumberInput>div>div>input,
     .stSelectbox>div>div>div {
         border-radius: 8px;
-        border: 2px solid #e2e8f0;
+        border: 2px solid #334155;
+        background-color: #1e293b;
+        color: #f1f5f9;
         padding: 0.5rem;
     }
     
     /* Headers */
     h1 {
-        color: #1e293b !important;
+        color: #f1f5f9 !important;
         font-weight: 700;
         margin-bottom: 0.5rem;
     }
     
     h2 {
-        color: #1e293b;
+        color: #e2e8f0;
         font-weight: 600;
         margin-top: 2rem;
     }
     
     h3 {
-        color: #334155;
+        color: #cbd5e1;
         font-weight: 600;
     }
     
     /* Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(30, 41, 59, 0.3);
         border-radius: 12px;
         padding: 0.5rem;
     }
     
     .stTabs [data-baseweb="tab"] {
         background: transparent;
-        color: #1e293b;
+        color: #cbd5e1;
         border-radius: 8px;
         padding: 0.75rem 1.5rem;
         font-weight: 500;
     }
     
     .stTabs [aria-selected="true"] {
-        background: #667eea !important;
+        background: #6366f1 !important;
         color: white !important;
     }
     
@@ -119,9 +125,17 @@ st.markdown("""
     .stAlert {
         border-radius: 12px;
         border-left: 4px solid;
+        color: #f1f5f9;
+        background-color: rgba(30, 41, 59, 0.6);
+    }
+    
+    /* Footer */
+    .footer {
+        color: rgba(241, 245, 249, 0.7);
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # Load Data
