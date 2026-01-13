@@ -122,12 +122,47 @@ st.markdown("""
     }
     
     /* Info/Warning/Error boxes */
-    .stAlert {
-        border-radius: 12px;
-        border-left: 4px solid;
-        color: #f1f5f9;
-        background-color: rgba(30, 41, 59, 0.6);
-    }
+    /* Alert boxes (info, warning, success, error) */
+div[data-testid="stAlert"] {
+    background-color: #020617;   /* very dark slate */
+    color: #e5e7eb;              /* readable light text */
+    border-radius: 12px;
+    border-left: 6px solid #6366f1;
+}
+
+/* Alert text */
+div[data-testid="stAlert"] p,
+div[data-testid="stAlert"] li {
+    color: #e5e7eb;
+    font-size: 0.95rem;
+}
+
+/* Icons */
+div[data-testid="stAlert"] svg {
+    fill: #a5b4fc;
+}
+/* Input labels */
+label {
+    color: #e2e8f0 !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Help text (?) under inputs */
+.stTooltipIcon,
+[data-testid="stTooltipContent"] {
+    color: #94a3b8 !important;
+}
+/* Metric delta text */
+[data-testid="stMetricDelta"] {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+            h2, h3 {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+
     
     /* Footer */
     .footer {
@@ -373,7 +408,11 @@ with tab2:
                     mode = "gauge+number",
                     value = pred_proba * 100,
                     domain = {'x': [0, 1], 'y': [0, 1]},
-                    title = {'text': "Churn Probability", 'font': {'size': 24, 'color': '#1e293b'}},
+                    title = {
+                                'text': "Churn Probability",
+                                'font': {'size': 24, 'color': '#e5e7eb'}
+                            }
+                            ,
                     number = {'suffix': "%", 'font': {'size': 48, 'color': risk_color}},
                     gauge = {
                         'axis': {'range': [None, 100], 'tickwidth': 1, 'tickcolor': "darkgray"},
